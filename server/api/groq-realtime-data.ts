@@ -26,12 +26,40 @@ interface RealTimeFinancialData {
   updated: string; // ISO date string
 }
 
+// Helper function to sanitize and extract valid JSON
+const extractValidJSON = (text) => {
+  // First attempt: direct parsing
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    // Second attempt: find JSON pattern in text
+    try {
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+    } catch (e) {
+      // Third attempt: remove potential code block markers
+      try {
+        // Remove markdown code block syntax if present
+        const cleanedText = text.replace(/```json|```/g, '').trim();
+        return JSON.parse(cleanedText);
+      } catch (e) {
+        // Give up and return empty object
+        console.error('All JSON extraction attempts failed:', e);
+        return {};
+      }
+    }
+  }
+  return {};
+};
+
 // Break down system prompts into smaller chunks
 const SYSTEM_PROMPTS = {
   BASIC: "You are a financial data assistant with access to current information.",
   DATA_GATHERING: "Use your tools to search for the most up-to-date financial data related to the user's request.",
   VERIFICATION: "Always verify information from multiple sources when possible and cite where the information was found if available.",
-  FORMAT_INSTRUCTIONS: "Format your response as JSON matching the required structure."
+  FORMAT_INSTRUCTIONS: "Format your response as JSON matching the required structure. Return ONLY a valid JSON object without any markdown formatting or explanation text."
 };
 
 // Break down the user prompts into smaller chunks
@@ -49,7 +77,7 @@ const USER_PROMPTS = {
     4. Recent financial news that might impact my financial decisions`,
   
   createFormatRequest: () => 
-    `Return only JSON data with no additional text.`
+    `Return only JSON data with no additional text or markdown formatting. Do not wrap the JSON in code blocks.`
 };
 
 // Return type structure for reference
@@ -112,26 +140,15 @@ export default defineEventHandler(async (event) => {
         { role: 'user', content: userPrompt }
       ],
       temperature: 0.2,
+      response_format: { type: "json_object" } // Enable JSON mode if supported
     });
 
     // Extract the content and executed tools from the response
     const content = response.choices[0]?.message?.content || '{}';
     const executedTools = response.choices[0]?.message?.executed_tools || [];
 
-    // Parse the content as JSON with error handling
-    let financialData: RealTimeFinancialData;
-    try {
-      financialData = JSON.parse(content) as RealTimeFinancialData;
-    } catch (error) {
-      console.error('Error parsing JSON response:', error);
-      // If JSON parsing fails, try to extract JSON from the text
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        financialData = JSON.parse(jsonMatch[0]) as RealTimeFinancialData;
-      } else {
-        throw new Error('Failed to parse response as JSON');
-      }
-    }
+    // Use the robust JSON extraction function
+    const financialData: RealTimeFinancialData = extractValidJSON(content) as RealTimeFinancialData;
 
     // Add timestamp if missing
     if (!financialData.updated) {

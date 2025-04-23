@@ -47,6 +47,34 @@ const ANALYSIS_SCHEMA = {
   }
 };
 
+// Helper function to sanitize and extract valid JSON
+const extractValidJSON = (text) => {
+  // First attempt: direct parsing
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    // Second attempt: find JSON pattern in text
+    try {
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+    } catch (e) {
+      // Third attempt: remove potential code block markers
+      try {
+        // Remove markdown code block syntax if present
+        const cleanedText = text.replace(/```json|```/g, '').trim();
+        return JSON.parse(cleanedText);
+      } catch (e) {
+        // Give up and return empty object
+        console.error('All JSON extraction attempts failed:', e);
+        return {};
+      }
+    }
+  }
+  return {};
+};
+
 export default defineEventHandler(async (event) => {
   try {
     // Get query parameter for number of months (default to 12 if not provided)
@@ -136,7 +164,8 @@ export default defineEventHandler(async (event) => {
     }
     
     // Build system prompt with reduced token length
-    const systemPrompt = Object.values(SYSTEM_PROMPTS).join(' ');
+    const systemPrompt = Object.values(SYSTEM_PROMPTS).join(' ') + 
+      " Return ONLY a valid JSON object without any markdown formatting or explanation text.";
     
     // Create array of messages, starting with system prompt
     let messages = [{ role: 'system' as const, content: systemPrompt }];
@@ -166,7 +195,7 @@ export default defineEventHandler(async (event) => {
       // Final instruction
       messages.push({ 
         role: 'user' as const, 
-        content: 'Now analyze all the chunks together and provide financial analysis as a JSON object.'
+        content: 'Now analyze all the chunks together and provide financial analysis as a JSON object. Do not include any text outside the JSON structure.'
       });
     }
     
@@ -182,17 +211,8 @@ export default defineEventHandler(async (event) => {
     let enhancedAnalysis = {};
     const content = response.choices[0]?.message.content || '{}';
     
-    try {
-      // Parse the JSON content
-      enhancedAnalysis = JSON.parse(content);
-    } catch (error) {
-      console.error('Error parsing JSON response:', error);
-      // Try to extract JSON from text if parsing fails
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        enhancedAnalysis = JSON.parse(jsonMatch[0]);
-      }
-    }
+    // Use our robust JSON extraction function
+    enhancedAnalysis = extractValidJSON(content);
     
     // Merge with our local analysis for comprehensive results
     const localAnalysis = performFinancialAnalysis(financialData);
@@ -225,7 +245,8 @@ export default defineEventHandler(async (event) => {
       success: false,
       message: 'Failed to generate enhanced AI analysis. Using local analysis instead.',
       analysis: localAnalysis,
-      source: 'local_fallback'
+      source: 'local_fallback',
+      error: error.message
     };
   }
 });

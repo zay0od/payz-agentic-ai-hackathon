@@ -18,6 +18,34 @@ const RECOMMENDATION_TYPES = [
   "goal_adjustment"     // For adjusting financial goals
 ];
 
+// Helper function to sanitize and extract valid JSON
+const extractValidJSON = (text) => {
+  // First attempt: direct parsing
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    // Second attempt: find JSON array pattern in text
+    try {
+      const jsonMatch = text.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+    } catch (e) {
+      // Third attempt: remove potential code block markers
+      try {
+        // Remove markdown code block syntax if present
+        const cleanedText = text.replace(/```json|```/g, '').trim();
+        return JSON.parse(cleanedText);
+      } catch (e) {
+        // Give up and return empty array
+        console.error('All JSON extraction attempts failed:', e);
+        return [];
+      }
+    }
+  }
+  return [];
+};
+
 export default defineEventHandler(async (event) => {
   try {
     // Get query parameter for number of months (default to 12 if not provided)
@@ -137,7 +165,8 @@ export default defineEventHandler(async (event) => {
     const modelToUse = modelSize === 'mini' ? 'compound-beta-mini' : 'compound-beta';
     
     // Prepare base system prompt (combined from smaller parts for token efficiency)
-    const systemPrompt = Object.values(RECOMMENDATION_PROMPTS).join(' ');
+    const systemPrompt = Object.values(RECOMMENDATION_PROMPTS).join(' ') + 
+      " Return ONLY a valid JSON array without any markdown formatting or explanation text.";
     
     // Create financial data prompt with just essential information
     const financialDataPrompt = `
@@ -160,7 +189,8 @@ export default defineEventHandler(async (event) => {
     2. How much to allocate to discretionary spending
     3. Any spending categories to adjust
     
-    Return ONLY a JSON array matching this schema: ${JSON.stringify(schemaDefinition, null, 2)}`;
+    Return ONLY a JSON array matching this schema: ${JSON.stringify(schemaDefinition, null, 2)}
+    Do not wrap the JSON in code blocks or include any explanatory text.`;
     
     // Prepare messages for API call
     const messages = [
@@ -205,23 +235,8 @@ export default defineEventHandler(async (event) => {
     // Get the content from the response
     const content = response.choices[0]?.message.content || '[]';
     
-    // Try to parse the JSON response
-    let recommendations: AIRecommendation[] = [];
-    try {
-      const parsed = JSON.parse(content);
-      recommendations = Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-      console.error('Error parsing JSON response:', error);
-      // Try to extract JSON from text if parsing fails
-      const jsonMatch = content.match(/\[[\s\S]*\]/);
-      if (jsonMatch) {
-        try {
-          recommendations = JSON.parse(jsonMatch[0]);
-        } catch {
-          recommendations = [];
-        }
-      }
-    }
+    // Use our robust JSON extraction function
+    const recommendations = extractValidJSON(content) as AIRecommendation[];
     
     // Return the AI-generated recommendations
     return {
