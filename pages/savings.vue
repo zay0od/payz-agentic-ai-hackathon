@@ -128,7 +128,7 @@ definePageMeta({
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   box-sizing: border-box;
   border: 2px solid #333;
@@ -136,7 +136,7 @@ definePageMeta({
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   min-height: 100vh;
 }
 
@@ -146,7 +146,7 @@ definePageMeta({
   justify-content: space-between;
   padding: 0.5rem 0;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .tabs {
@@ -206,42 +206,46 @@ definePageMeta({
 }
 
 .content {
-  padding: 1rem;
+  padding: 0;
   flex-grow: 1;
   overflow-y: auto;
-  height: calc(100vh - 80px); /* Adjust based on your header height */
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .page-header {
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .page-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .page-subtitle {
   font-size: 0.95rem;
   color: #666;
   font-weight: 400;
+  line-height: 1.5;
 }
 
 .savings-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .stat-card {
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 0.75rem;
-  padding: 1.25rem;
+  padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
@@ -267,15 +271,14 @@ definePageMeta({
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  padding: 1.5rem;
+  margin-bottom: 0;
 }
 
 .savings-goals h2 {
-  font-size: 1rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #555;
 }
 
 .goal-list {
