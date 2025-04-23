@@ -1,10 +1,7 @@
 <template>
   <div class="app-container">
       <!-- Page View -->
-          <!-- <NuxtPage /> -->
-           <h1>
-            Hello
-           </h1>
+          <NuxtPage />
       <!-- Page View -->
   </div>
 </template>
