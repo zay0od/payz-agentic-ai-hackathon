@@ -1,11 +1,25 @@
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-
+  <div class="app-container">
+      <!-- Page View -->
+          <NuxtPage />
+      <!-- Page View -->
   </div>
 </template>
 
 
-<script type>
-</script>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 1rem;
+}
+</style>
