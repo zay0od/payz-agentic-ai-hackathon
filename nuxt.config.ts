@@ -21,4 +21,14 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+
+  runtimeConfig: {
+    // Private keys are only available on the server
+    groqApiKey: process.env.GROQ_API_KEY,
+
+    // Public keys that are exposed to the client
+    public: {
+      // publicKey: process.env.PUBLIC_KEY
+    }
+  }
 })

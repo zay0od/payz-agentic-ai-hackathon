@@ -13,13 +13,14 @@ export const getGroqClient = (event?: H3Event): GroqApiClient => {
     return groqClient;
   }
 
-  // Get API key from environment variables
-  const apiKey = process.env.GROQ_API_KEY;
-  
+  // Get API key from runtime config
+  const config = useRuntimeConfig();
+  const apiKey = config.groqApiKey;
+
   if (!apiKey) {
-    throw new Error('GROQ_API_KEY environment variable is not set');
+    throw new Error('GROQ_API_KEY is not configured in runtime config');
   }
-  
+
   // Create and return a new client
   groqClient = new GroqApiClient(apiKey);
   return groqClient;
