@@ -48,7 +48,7 @@ export class GroqApiClient {
   /**
    * Make a request to the Groq API
    */
-  private async makeRequest(endpoint: string, data: any): Promise<any> {
+  public async makeRequest(endpoint: string, data: any): Promise<any> {
     try {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
@@ -118,7 +118,8 @@ export class GroqApiClient {
     expenses: Record<string, number>,
     savingsGoal: number,
     currentSavings: number,
-    targetDate: string
+    targetDate: string,
+    enhancedContext: string = '' // New parameter for real-time data context
   ): Promise<AIRecommendation[]> {
     // Create a schema for the AIRecommendation to properly structure the JSON response
     const recommendationSchema = {
@@ -157,7 +158,7 @@ export class GroqApiClient {
     
     For savings_allocation recommendations, calculate specific amounts to transfer based on the financial data.`;
     
-    const userPrompt = `
+    let userPrompt = `
     Here is my current financial situation:
     - Monthly Income: ${income} AED
     - Monthly Expenses:
@@ -174,6 +175,11 @@ export class GroqApiClient {
     
     Remember to return ONLY a JSON array with no explanatory text.`;
     
+    // Add real-time data context if provided
+    if (enhancedContext) {
+      userPrompt += `\n\n${enhancedContext}`;
+    }
+    
     try {
       // Using the compound-beta model for its agentic capabilities with JSON mode enabled
       const result = await this.makeRequest('/chat/completions', {
@@ -182,8 +188,8 @@ export class GroqApiClient {
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
-        response_format: { type: "json_object" }, // Enable JSON mode
-        temperature: 0.2 // Lower temperature for more consistent JSON formatting
+        temperature: 0.2, // Lower temperature for more consistent JSON formatting
+
       }) as GroqChatCompletionResponse;
       
       // Get the content from the response
@@ -322,7 +328,7 @@ export class GroqApiClient {
       }
       
       return content;
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error getting financial advice from Groq API:', error);
       return useJsonResponse 
         ? { error: 'API request failed', message: error.message } 
