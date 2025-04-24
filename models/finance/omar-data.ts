@@ -100,7 +100,12 @@ function generateFreelanceProjects(monthStartDate: Date): Transaction[] {
 
 // Main simulation function
 export function simulateOmarData(numMonths: number = 12): FinancialData {
-  const startDate = new Date(new Date().getFullYear() - 1, 0, 1); // Start Jan 1st last year
+  // Changed to make sure we generate data that includes the current month
+  const endDate = new Date(); // Current date
+  const startDate = new Date(endDate);
+  startDate.setMonth(endDate.getMonth() - numMonths + 1); // Start date is numMonths before current date
+  startDate.setDate(1); // Set to the first day of that month
+  
   let currentDate = new Date(startDate);
   const transactions: Transaction[] = [];
   let transactionIdCounter = 1;
@@ -110,7 +115,11 @@ export function simulateOmarData(numMonths: number = 12): FinancialData {
   let savePotBalance = 20000;
   let playPotBalance = 2000;
 
-  for (let month = 0; month < numMonths; month++) {
+  // Calculate number of months to simulate
+  const totalMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + 
+                       endDate.getMonth() - startDate.getMonth() + 1;
+                       
+  for (let month = 0; month < totalMonths; month++) {
     const monthStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
 

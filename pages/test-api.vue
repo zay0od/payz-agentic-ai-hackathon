@@ -293,6 +293,385 @@
           </div>
         </div>
       </div>
+
+      <!-- Agentic Tooling Test Section -->
+      <div class="border rounded-lg p-6 bg-gray-50 shadow-sm">
+        <h2 class="text-xl font-semibold mb-4">Groq Agentic Tooling Test</h2>
+        
+        <!-- Updated Real-Time Financial Data section -->
+        <div class="mb-6">
+          <h3 class="font-medium text-gray-700 mb-3">Real-Time Financial Data</h3>
+          <div class="flex gap-2 mb-4">
+            <button @click="fetchRealTimeData" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+              Fetch Real-Time Data
+            </button>
+            <select v-model="selectedCountry" class="border rounded px-2 py-2">
+              <option value="UAE">UAE</option>
+              <option value="USA">USA</option>
+              <option value="UK">UK</option>
+              <option value="Singapore">Singapore</option>
+            </select>
+            <input v-model="goalInput" class="border rounded px-2" placeholder="Goals (comma-separated)" />
+          </div>
+          <div v-if="realTimeDataLoading" class="flex items-center text-gray-500">
+            <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Loading real-time financial data...
+          </div>
+          <div v-else-if="realTimeData">
+            <!-- Interest Rates Section -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Current Interest Rates</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-3 bg-blue-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Mortgage Rates</div>
+                  <div class="text-lg font-bold">{{ realTimeData.interest_rates.mortgage.average_rate }}%</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Range: {{ realTimeData.interest_rates.mortgage.lowest_rate }}% - {{ realTimeData.interest_rates.mortgage.highest_rate }}%
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.interest_rates.mortgage.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-green-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Savings Accounts</div>
+                  <div class="text-lg font-bold">{{ realTimeData.interest_rates.savings_accounts.average_rate }}%</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Highest Rate: {{ realTimeData.interest_rates.savings_accounts.highest_rate }}%
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.interest_rates.savings_accounts.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-red-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Personal Loans</div>
+                  <div class="text-lg font-bold">{{ realTimeData.interest_rates.personal_loans.average_rate }}%</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Range: {{ realTimeData.interest_rates.personal_loans.lowest_rate }}% - {{ realTimeData.interest_rates.personal_loans.highest_rate }}%
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.interest_rates.personal_loans.source.join(', ') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Housing Market Trends -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Housing Market Trends</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3 bg-yellow-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Dubai</div>
+                  <div class="text-lg font-bold">{{ realTimeData.market_trends.housing_market.dubai.average_price.toLocaleString() }} AED</div>
+                  <div class="text-sm text-gray-600">
+                    Growth Rate: <span class="font-semibold" :class="{'text-green-600': realTimeData.market_trends.housing_market.dubai.growth_rate > 0}">
+                      {{ realTimeData.market_trends.housing_market.dubai.growth_rate }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.market_trends.housing_market.dubai.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-yellow-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Abu Dhabi</div>
+                  <div class="text-lg font-bold">{{ realTimeData.market_trends.housing_market.abu_dhabi.average_price.toLocaleString() }} AED</div>
+                  <div class="text-sm text-gray-600">
+                    Growth Rate: <span class="font-semibold" :class="{'text-green-600': realTimeData.market_trends.housing_market.abu_dhabi.growth_rate > 0}">
+                      {{ realTimeData.market_trends.housing_market.abu_dhabi.growth_rate }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.market_trends.housing_market.abu_dhabi.source.join(', ') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Stock Market Trends -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Stock Market Trends</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3 bg-purple-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Abu Dhabi Securities Exchange (ADX)</div>
+                  <div class="text-lg font-bold">{{ realTimeData.market_trends.stock_market.adx.current_value.toLocaleString() }}</div>
+                  <div class="text-sm text-gray-600">
+                    Growth Rate: <span class="font-semibold" :class="{'text-green-600': realTimeData.market_trends.stock_market.adx.growth_rate > 0}">
+                      {{ realTimeData.market_trends.stock_market.adx.growth_rate }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.market_trends.stock_market.adx.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-purple-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Dubai Financial Market (DFM)</div>
+                  <div class="text-lg font-bold">{{ realTimeData.market_trends.stock_market.dfm.current_value.toLocaleString() }}</div>
+                  <div class="text-sm text-gray-600">
+                    Growth Rate: <span class="font-semibold" :class="{'text-green-600': realTimeData.market_trends.stock_market.dfm.growth_rate > 0}">
+                      {{ realTimeData.market_trends.stock_market.dfm.growth_rate }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.market_trends.stock_market.dfm.source.join(', ') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Economic Indicators -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Economic Indicators</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-3 bg-indigo-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">GDP Growth</div>
+                  <div class="text-lg font-bold">{{ realTimeData.economic_indicators.gdp_growth.current_growth }}%</div>
+                  <div class="text-sm text-gray-600">
+                    Forecast: <span class="font-semibold">
+                      {{ realTimeData.economic_indicators.gdp_growth.forecast }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.economic_indicators.gdp_growth.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-pink-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Unemployment</div>
+                  <div class="text-lg font-bold">{{ realTimeData.economic_indicators.unemployment.current_rate }}%</div>
+                  <div class="text-sm text-gray-600">
+                    Forecast: <span class="font-semibold">
+                      {{ realTimeData.economic_indicators.unemployment.forecast }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.economic_indicators.unemployment.source.join(', ') }}
+                  </div>
+                </div>
+                <div class="p-3 bg-teal-50 border rounded-lg">
+                  <div class="text-sm text-gray-600">Consumer Spending</div>
+                  <div class="text-lg font-bold">+{{ realTimeData.economic_indicators.consumer_spending.current_growth }}%</div>
+                  <div class="text-sm text-gray-600">
+                    Forecast: <span class="font-semibold">
+                      {{ realTimeData.economic_indicators.consumer_spending.forecast }}%
+                    </span>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Sources: {{ realTimeData.economic_indicators.consumer_spending.source.join(', ') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Inflation Rate -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Inflation</h4>
+              <div class="p-3 bg-orange-50 border rounded-lg">
+                <div class="text-sm text-gray-600">Inflation Rate</div>
+                <div class="text-lg font-bold">{{ realTimeData.market_trends.inflation_rate.current_rate }}%</div>
+                <div class="text-sm text-gray-600">
+                  Forecast: <span class="font-semibold">
+                    {{ realTimeData.market_trends.inflation_rate.forecast }}%
+                  </span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                  Sources: {{ realTimeData.market_trends.inflation_rate.source.join(', ') }}
+                </div>
+              </div>
+            </div>
+            
+            <!-- Financial News -->
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Recent Financial News</h4>
+              <div class="space-y-3">
+                <div v-for="(news, index) in realTimeData.recent_financial_news" :key="index"
+                     class="p-3 bg-white border rounded-lg">
+                  <div class="font-medium">{{ news.title }}</div>
+                  <div class="text-sm text-gray-600 mt-1">{{ news.description }}</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Source: {{ news.source }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Updated timestamp -->
+            <div class="mt-4 p-3 bg-gray-100 rounded-lg">
+              <div class="text-sm">
+                <div><span class="font-medium">Last Updated:</span> {{ new Date(realTimeData.updated).toLocaleString() }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Agentic Recommendations Test -->
+        <div>
+          <h3 class="font-medium text-gray-700 mb-3">Agentic Financial Recommendations</h3>
+          <div class="flex gap-2 mb-4">
+            <button @click="getAgenticRecommendations" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+              Get Recommendations with Real-Time Data
+            </button>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="useRealtime" v-model="useRealtimeData" class="rounded">
+              <label for="useRealtime">Use real-time data</label>
+            </div>
+          </div>
+          <div v-if="agenticRecommendationsLoading" class="flex items-center text-gray-500">
+            <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Loading recommendations with agentic capabilities...
+          </div>
+          <div v-else-if="agenticRecommendations" class="mt-4">
+            <!-- If real-time data was used, show a badge -->
+            <div v-if="realtimeDataUsed" class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm mb-2">
+              Recommendations include real-time market data
+            </div>
+            <div v-else class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm mb-2">
+              Using simulated data only
+            </div>
+            
+            <!-- Analysis summary section -->
+            <div v-if="agenticResponse && agenticResponse.analysis" class="mb-6 bg-white border rounded-lg p-4">
+              <h4 class="font-semibold text-lg mb-2">Financial Analysis</h4>
+              <div class="text-sm text-gray-700 mb-4">{{ agenticResponse.analysis.summary }}</div>
+              
+              <!-- Expandable full analysis -->
+              <details class="bg-gray-50 p-3 rounded-lg">
+                <summary class="font-medium cursor-pointer">View Full Analysis</summary>
+                <div class="mt-3 text-sm whitespace-pre-line">{{ agenticResponse.analysis.full }}</div>
+              </details>
+            </div>
+            
+            <!-- Financial summary section -->
+            <div v-if="agenticResponse && agenticResponse.summary" class="mb-6">
+              <h4 class="font-semibold text-lg mb-2">Financial Summary</h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="p-4 bg-blue-50 border border-blue-100 rounded-lg shadow-sm">
+                  <div class="text-sm text-gray-600">Income</div>
+                  <div class="text-lg font-bold text-blue-700">{{ agenticResponse.summary.income.toFixed(2) }} AED</div>
+                </div>
+                <div class="p-4 bg-red-50 border border-red-100 rounded-lg shadow-sm">
+                  <div class="text-sm text-gray-600">Total Expenses</div>
+                  <div class="text-lg font-bold text-red-700">{{ agenticResponse.summary.totalExpenses.toFixed(2) }} AED</div>
+                </div>
+                <div class="p-4 bg-green-50 border border-green-100 rounded-lg shadow-sm">
+                  <div class="text-sm text-gray-600">Current Savings</div>
+                  <div class="text-lg font-bold text-green-700">{{ agenticResponse.summary.currentSavings.toFixed(2) }} AED</div>
+                </div>
+              </div>
+              
+              <!-- Expense breakdown -->
+              <div class="mb-4">
+                <h5 class="font-medium mb-2">Expense Breakdown</h5>
+                <div class="bg-white border rounded-lg overflow-hidden">
+                  <div class="grid grid-cols-2 gap-1 p-3">
+                    <div v-for="(amount, category) in agenticResponse.summary.expenses" :key="category" 
+                         class="flex justify-between items-center p-2 rounded">
+                      <span class="text-sm">{{ category }}</span>
+                      <span class="font-medium">{{ amount.toFixed(2) }} AED</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Spending patterns -->
+              <div v-if="agenticResponse.summary.spendingPatterns && agenticResponse.summary.spendingPatterns.length > 0">
+                <h5 class="font-medium mb-2">Spending Patterns</h5>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border bg-white rounded-lg">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="py-2 px-3 text-left text-xs font-medium text-gray-500">Category</th>
+                        <th class="py-2 px-3 text-left text-xs font-medium text-gray-500">Monthly Avg</th>
+                        <th class="py-2 px-3 text-left text-xs font-medium text-gray-500">Trend</th>
+                        <th class="py-2 px-3 text-left text-xs font-medium text-gray-500">Variability</th>
+                        <th class="py-2 px-3 text-left text-xs font-medium text-gray-500">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr v-for="pattern in agenticResponse.summary.spendingPatterns" :key="pattern.category">
+                        <td class="py-2 px-3 text-sm">{{ pattern.category }}</td>
+                        <td class="py-2 px-3 text-sm font-medium">{{ pattern.avgMonthly.toFixed(2) }} AED</td>
+                        <td class="py-2 px-3 text-sm">
+                          <span class="px-2 py-1 text-xs rounded-full" 
+                                :class="{
+                                  'bg-green-100 text-green-800': pattern.trend === 'increasing',
+                                  'bg-red-100 text-red-800': pattern.trend === 'decreasing',
+                                  'bg-gray-100 text-gray-800': pattern.trend === 'stable'
+                                }">
+                            {{ pattern.trend }}
+                          </span>
+                        </td>
+                        <td class="py-2 px-3 text-sm">{{ (pattern.variability * 100).toFixed(1) }}%</td>
+                        <td class="py-2 px-3 text-sm">
+                          <span class="px-2 py-1 text-xs rounded-full" 
+                                :class="{
+                                  'bg-red-100 text-red-800': pattern.importance === 'essential',
+                                  'bg-blue-100 text-blue-800': pattern.importance === 'variable',
+                                  'bg-purple-100 text-purple-800': pattern.importance === 'discretionary'
+                                }">
+                            {{ pattern.importance }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <!-- Savings Goal -->
+              <div class="mt-4">
+                <h5 class="font-medium mb-2">Savings Goal</h5>
+                <div class="bg-white border rounded-lg p-4">
+                  <div class="font-medium">{{ agenticResponse.summary.goal.description }}</div>
+                  <div class="mt-2 flex items-center">
+                    <div class="w-full bg-gray-200 rounded-full h-4 mr-2">
+                      <div class="bg-green-500 h-4 rounded-full" 
+                           :style="`width: ${(agenticResponse.summary.goal.current_amount / agenticResponse.summary.goal.target_amount) * 100}%`">
+                      </div>
+                    </div>
+                    <span class="text-sm whitespace-nowrap">{{ Math.round((agenticResponse.summary.goal.current_amount / agenticResponse.summary.goal.target_amount) * 100) }}%</span>
+                  </div>
+                  <div class="text-sm mt-2">
+                    <span class="text-gray-600">Target: </span>
+                    <span class="font-medium">{{ agenticResponse.summary.goal.target_amount.toLocaleString() }} AED</span>
+                    <span class="text-gray-600 ml-4">by </span>
+                    <span class="font-medium">{{ new Date(agenticResponse.summary.goal.target_date).toLocaleDateString() }}</span>
+                  </div>
+                  <div class="text-sm">
+                    <span class="text-gray-600">Current: </span>
+                    <span class="font-medium">{{ agenticResponse.summary.goal.current_amount.toLocaleString() }} AED</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <h4 class="font-semibold text-lg mb-2">Recommendations</h4>
+            <div v-for="(rec, index) in agenticRecommendations" :key="index" 
+                class="p-4 rounded-lg border shadow-sm mb-4"
+                :class="getRecommendationClass(rec.type)">
+              <div class="flex justify-between items-start">
+                <div class="font-semibold">{{ rec.description }}</div>
+                <span class="px-2 py-1 text-xs rounded-full capitalize"
+                      :class="{
+                        'bg-blue-100 text-blue-800': rec.type === 'savings_allocation',
+                        'bg-yellow-100 text-yellow-800': rec.type === 'spending_alert',
+                        'bg-green-100 text-green-800': rec.type === 'goal_adjustment'
+                      }">
+                  {{ rec.type.replace('_', ' ') }}
+                </span>
+              </div>
+              <div v-if="rec.amount && rec.amount > 0" class="text-lg font-bold mt-1 text-green-700">{{ rec.amount.toFixed(2) }} AED</div>
+              <div class="text-sm text-gray-600 mt-1">{{ rec.reason }}</div>
+              <div class="text-sm text-gray-500 mt-2">Recommendation ID: {{ rec.recommendation_id }} | Date: {{ new Date(rec.date).toLocaleDateString() }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -303,6 +682,10 @@ const dataMonths = ref(12);
 const analysisMonths = ref(12);
 const groqMonths = ref(12);
 const autoExecuteMode = ref('full_auto');
+const selectedCountry = ref('UAE');
+const goalInput = ref('');
+const useRealtimeData = ref(false);
+const realtimeDataUsed = ref(false);
 
 const personaData = ref(null);
 const dataLoading = ref(false);
@@ -316,6 +699,16 @@ const groqError = ref(null);
 
 const autoActionsData = ref(null);
 const autoActionsLoading = ref(false);
+
+const realTimeData = ref(null);
+const realTimeDataLoading = ref(false);
+
+const agenticRecommendations = ref(null);
+const agenticRecommendationsLoading = ref(false);
+
+const toolUsage = ref({
+  toolsExecuted: 0
+});
 
 // User details data
 const userDetails = ref(null);
@@ -425,6 +818,45 @@ async function runAutoActions() {
     console.error(`Error running ${activePersonaObj.value.name} auto actions:`, error);
   } finally {
     autoActionsLoading.value = false;
+  }
+}
+
+// Function to fetch real-time financial data
+async function fetchRealTimeData() {
+  realTimeDataLoading.value = true;
+  try {
+    const response = await fetch(`/api/real-time-data?country=${selectedCountry.value}&goals=${goalInput.value}`);
+    const data = await response.json();
+    realTimeData.value = data;
+    toolUsage.value.toolsExecuted += 1;
+  } catch (error) {
+    console.error('Error fetching real-time financial data:', error);
+  } finally {
+    realTimeDataLoading.value = false;
+  }
+}
+
+// Function to get agentic recommendations
+async function getAgenticRecommendations() {
+  agenticRecommendationsLoading.value = true;
+  try {
+    const response = await fetch(`/api/agentic-recommendations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        persona: activePersona.value,
+        useRealtimeData: useRealtimeData.value
+      })
+    });
+    const data = await response.json();
+    agenticRecommendations.value = data.recommendations || [];
+    realtimeDataUsed.value = useRealtimeData.value;
+  } catch (error) {
+    console.error('Error fetching agentic recommendations:', error);
+  } finally {
+    agenticRecommendationsLoading.value = false;
   }
 }
 
