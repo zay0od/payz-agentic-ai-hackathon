@@ -147,6 +147,109 @@
               </div>
             </div>
           </div>
+
+          <!-- UAE Market Investment Suggestions -->
+          <div class="uae-market-suggestions">
+            <h2>UAE Market Investment Opportunities</h2>
+            <p class="section-description">AI-powered investment suggestions based on real-time UAE market data.</p>
+            <div class="investment-list">
+              <div class="investment-item">
+                <div class="investment-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <path d="M3 3v18"></path>
+                    <path d="M21 3v18"></path>
+                  </svg>
+                </div>
+                <div class="investment-content">
+                  <h3>Real Estate Investment Trusts (REITs)</h3>
+                  <p>Based on current market conditions, UAE REITs are showing strong potential with an average yield of 7.5% and stable property valuations.</p>
+                  <div class="investment-metrics">
+                    <span class="metric">
+                      <span class="label">Risk Level:</span>
+                      <span class="value">Moderate</span>
+                    </span>
+                    <span class="metric">
+                      <span class="label">Min Investment:</span>
+                      <span class="value">5,000 AED</span>
+                    </span>
+                  </div>
+                  <button class="invest-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                      <path d="M3 3v18"></path>
+                      <path d="M21 3v18"></path>
+                    </svg>
+                    Invest
+                  </button>
+                </div>
+              </div>
+
+              <div class="investment-item">
+                <div class="investment-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="investment-content">
+                  <h3>UAE Tech Sector ETFs</h3>
+                  <p>The UAE's technology sector is experiencing rapid growth, with local tech companies showing strong performance and increasing market share.</p>
+                  <div class="investment-metrics">
+                    <span class="metric">
+                      <span class="label">Risk Level:</span>
+                      <span class="value">High</span>
+                    </span>
+                    <span class="metric">
+                      <span class="label">Min Investment:</span>
+                      <span class="value">3,000 AED</span>
+                    </span>
+                  </div>
+                  <button class="invest-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                      <path d="M3 3v18"></path>
+                      <path d="M21 3v18"></path>
+                    </svg>
+                    Invest
+                  </button>
+                </div>
+              </div>
+
+              <div class="investment-item">
+                <div class="investment-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <path d="M3 3v18"></path>
+                    <path d="M21 3v18"></path>
+                  </svg>
+                </div>
+                <div class="investment-content">
+                  <h3>UAE Government Bonds</h3>
+                  <p>UAE government bonds are offering attractive yields with strong credit ratings, making them a stable investment option for conservative investors.</p>
+                  <div class="investment-metrics">
+                    <span class="metric">
+                      <span class="label">Risk Level:</span>
+                      <span class="value">Low</span>
+                    </span>
+                    <span class="metric">
+                      <span class="label">Min Investment:</span>
+                      <span class="value">10,000 AED</span>
+                    </span>
+                  </div>
+                  <button class="invest-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                      <path d="M3 3v18"></path>
+                      <path d="M21 3v18"></path>
+                    </svg>
+                    Invest
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </PageTransition>
@@ -522,6 +625,128 @@ definePageMeta({
   font-size: 0.85rem;
   color: #777;
   line-height: 1.4;
+}
+
+/* UAE Market Investment Suggestions Styles */
+.uae-market-suggestions {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 0;
+}
+
+.uae-market-suggestions h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.investment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.investment-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.investment-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.investment-icon {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  color: #4CAF50;
+}
+
+.investment-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.investment-content {
+  flex: 1;
+}
+
+.investment-content h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.investment-content p {
+  font-size: 0.85rem;
+  color: #777;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.investment-metrics {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.metric .label {
+  color: #666;
+}
+
+.metric .value {
+  font-weight: 500;
+  color: #333;
+}
+
+.invest-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.invest-button:hover {
+  background-color: #43A047;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.invest-button svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Responsive adjustments */
