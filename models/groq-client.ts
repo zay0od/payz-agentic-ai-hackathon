@@ -189,7 +189,17 @@ export class GroqApiClient {
           { role: 'user', content: userPrompt }
         ],
         temperature: 0.2, // Lower temperature for more consistent JSON formatting
-
+        response_format: { type: "json_object" }, // Enable JSON mode
+        tools: [
+          {
+            type: "function", // This is the required format - 'function' is the only allowed value
+            function: {
+              name: "financial_recommendations", 
+              description: "Generate financial recommendations based on user's financial data",
+              parameters: recommendationSchema
+            }
+          }
+        ]
       }) as GroqChatCompletionResponse;
       
       // Get the content from the response
