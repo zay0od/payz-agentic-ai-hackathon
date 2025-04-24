@@ -78,7 +78,7 @@ definePageMeta({
   padding: 1.5rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   box-sizing: border-box;
-  border: 2px solid #333;
+  /* border: 2px solid #333; */
   border-radius: 1.5rem;
   overflow: hidden;
   display: flex;

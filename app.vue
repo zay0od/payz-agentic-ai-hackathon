@@ -13,7 +13,7 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .app-container {
@@ -21,6 +21,6 @@ html, body {
   justify-content: center;
   min-height: 100vh;
   background-color: #f9f9f9;
-  padding: 1rem;
+  padding: .2rem;
 }
 </style>
