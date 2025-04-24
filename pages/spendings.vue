@@ -41,47 +41,54 @@
           
           <div class="total-balance">
             <h2>Total Balance</h2>
-            <p class="amount">AED 5,000.00</p>
+            <p class="amount">AED 4,278.90</p>
           </div>
 
           <div class="spending-stats">
             <div class="stat-card">
               <h3>Total Spent</h3>
-              <p class="amount">AED 1,234.56</p>
-              <p class="period">This Month</p>
+              <p class="amount">AED 2,421.10</p>
             </div>
             <div class="stat-card">
               <h3>Daily Average</h3>
-              <p class="amount">AED 41.15</p>
-              <p class="period">Last 30 Days</p>
+              <p class="amount">AED 78.10</p>
+              <p class="period">March 2025 (31 days)</p>
             </div>
           </div>
 
-          <div class="spending-categories">
-            <h2>Spending by Category</h2>
-            <div class="category-list">
-              <div class="category-item">
-                <span class="category-name">Food & Dining</span>
-                <span class="category-amount">AED 450.00</span>
-              </div>
-              <div class="category-item">
-                <span class="category-name">Transportation</span>
-                <span class="category-amount">AED 200.00</span>
-              </div>
-              <div class="category-item">
-                <span class="category-name">Shopping</span>
-                <span class="category-amount">AED 300.00</span>
-              </div>
-              <div class="category-item">
-                <span class="category-name">Entertainment</span>
-                <span class="category-amount">AED 150.00</span>
-              </div>
-              <div class="category-item">
-                <span class="category-name">Bills & Utilities</span>
-                <span class="category-amount">AED 134.56</span>
+          <!-- Budget Cards Section -->
+          <div class="budget-cards">
+            <h2>Budget Progress</h2>
+            <div class="card-grid">
+              <div v-for="budget in budgets" :key="budget.category" class="budget-card">
+                <div class="card-icon-wrapper">
+                  <!-- Placeholder for icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+                     <path v-if="budget.category === 'Shopping'" d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                     <line v-if="budget.category === 'Shopping'" x1="3" x2="21" y1="6" y2="6"/>
+                     <path v-if="budget.category === 'Shopping'" d="M16 10a4 4 0 0 1-8 0"/>
+                     
+                     <path v-if="budget.category === 'Food'" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/> 
+                     <circle v-if="budget.category === 'Food'" cx="12" cy="10" r="3"/> 
+
+                     <!-- Default icon -->
+                     <circle v-if="!['Shopping', 'Food'].includes(budget.category)" cx="12" cy="12" r="10"/>
+                  </svg>
+                </div>
+                <div class="card-details">
+                  <h3 class="card-category">{{ budget.category }}</h3>
+                  <p class="card-amount">AED {{ budget.spent.toFixed(2) }} / AED {{ budget.limit.toFixed(2) }}</p>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar" :style="{ width: budget.percentage + '%' }"></div>
+                  </div>
+                  <span class="card-percentage">{{ budget.percentage }}%</span>
+                </div>
               </div>
             </div>
           </div>
+          <!-- End Budget Cards Section -->
+
+       
         </div>
       </div>
     </PageTransition>
@@ -89,7 +96,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import PageTransition from '~/components/PageTransition.vue';
 
@@ -101,6 +108,23 @@ const navigateTo = (path) => {
   router.push(path);
   currentRoute.value = path;
 };
+
+// Sample budget data
+const budgetsData = ref([
+  { category: 'Shopping', spent: 420, limit: 500, icon: 'shopping-bag' },
+  { category: 'Food', spent: 200, limit: 200, icon: 'utensils' },
+  { category: 'Transport', spent: 150, limit: 250, icon: 'car' },
+  { category: 'Entertainment', spent: 120, limit: 150, icon: 'film' },
+  { category: 'Bills & Utilities', spent: 100, limit: 135, icon: 'file-text' },
+]);
+
+// Computed property to add percentage calculation
+const budgets = computed(() => {
+  return budgetsData.value.map(budget => ({
+    ...budget,
+    percentage: Math.min(Math.round((budget.spent / budget.limit) * 100), 100) // Calculate percentage
+  }));
+});
 
 definePageMeta({
   title: "Spendings",
@@ -240,6 +264,7 @@ definePageMeta({
   color: #666;
   font-weight: 400;
   line-height: 1.5;
+  margin-bottom: 1.5rem;
 }
 
 .total-balance {
@@ -261,23 +286,23 @@ definePageMeta({
 
 .spending-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
 }
 
 .stat-card {
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 0.75rem;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .stat-card h3 {
   font-size: 0.8rem;
   color: #999;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .period {
@@ -383,16 +408,124 @@ definePageMeta({
   background: #999;
 }
 
+/* Budget Cards Styles */
+.budget-cards {
+  margin-bottom: 1.5rem;
+}
+
+.budget-cards h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.budget-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid #eee;
+}
+
+.card-icon-wrapper {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-icon {
+  width: 20px;
+  height: 20px;
+  color: #333;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-category {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-amount {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #333;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.card-percentage {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #555;
+  align-self: flex-end;
+  margin-top: -26px;
+  margin-right: 5px;
+  display: none;
+}
+
 /* Responsive adjustments */
 @media (min-width: 640px) {
   .spendings-container {
     max-width: 480px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 768px) {
   .spendings-container {
     max-width: 500px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .spending-stats {
+    grid-template-columns: 1fr;
+  }
+  .card-percentage {
+    margin-top: -24px;
   }
 }
 </style> 

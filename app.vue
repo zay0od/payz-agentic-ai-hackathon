@@ -13,6 +13,7 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
 }
 
 .app-container {

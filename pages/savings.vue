@@ -33,65 +33,116 @@
         </header>
         
         <div class="page-header">
-          <h1 class="page-title">Savings</h1>
+          <h1 class="page-title">Savings Goals</h1>
           <p class="page-subtitle">Manage and track your savings goals.</p>
         </div>
         
         <div class="content">
-          <h1 class="page-title">Savings Goals</h1>
           
           <div class="savings-stats">
             <div class="stat-card">
               <h3>Total Saved</h3>
-              <p class="amount">AED 5,678.90</p>
-              <p class="period">This Year</p>
+              <p class="amount">AED 4,278.90</p>
+              <p class="period">March 2025</p>
             </div>
             <div class="stat-card">
-              <h3>Monthly Average</h3>
-              <p class="amount">AED 473.24</p>
-              <p class="period">Last 12 Months</p>
+              <h3>Daily Average</h3>
+              <p class="amount">AED 138.03</p>
+              <p class="period">March 2025 (31 days)</p>
             </div>
           </div>
 
           <div class="savings-goals">
-            <h2>Active Goals</h2>
+            <h2>AI-Managed Goals</h2>
+            <p class="section-description">Your savings are automatically allocated and managed by our AI assistant.</p>
             <div class="goal-list">
               <div class="goal-item">
                 <div class="goal-info">
-                  <h3>Emergency Fund</h3>
+                  <h3>Thailand Adventure</h3>
                   <div class="progress-bar">
                     <div class="progress" style="width: 75%"/>
                   </div>
-                  <p class="goal-progress">AED 7,500 / AED 10,000</p>
+                  <p class="goal-progress">AED 7,500.00 / AED 10,000.00</p>
+                  <p class="ai-status">AI is adjusting based on your spending patterns</p>
                 </div>
                 <div class="goal-actions">
-                  <button class="action-button">Add</button>
+                  <button class="icon-button" aria-label="Invite">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <line x1="19" y1="8" x2="19" y2="14"></line>
+                      <line x1="22" y1="11" x2="16" y2="11"></line>
+                    </svg>
+                  </button>
                 </div>
               </div>
               
               <div class="goal-item">
                 <div class="goal-info">
-                  <h3>New Car</h3>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 30%"/>
-                  </div>
-                  <p class="goal-progress">AED 6,000 / AED 20,000</p>
-                </div>
-                <div class="goal-actions">
-                  <button class="action-button">Add</button>
-                </div>
-              </div>
-              
-              <div class="goal-item">
-                <div class="goal-info">
-                  <h3>Vacation Fund</h3>
+                  <h3>Dream Home Fund</h3>
                   <div class="progress-bar">
                     <div class="progress" style="width: 45%"/>
                   </div>
-                  <p class="goal-progress">AED 900 / AED 2,000</p>
+                  <p class="goal-progress">AED 45,000.00 / AED 100,000.00</p>
+                  <p class="ai-status">AI is adjusting based on your spending patterns</p>
                 </div>
                 <div class="goal-actions">
-                  <button class="action-button">Add</button>
+                  <button class="icon-button" aria-label="Invite">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <line x1="19" y1="8" x2="19" y2="14"></line>
+                      <line x1="22" y1="11" x2="16" y2="11"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Savings Tips Section -->
+          <div class="savings-tips">
+            <h2>AI Tips</h2>
+            <div class="tips-list">
+              <div class="tip-item">
+                <div class="tip-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3>Save 10% More on Dining</h3>
+                  <p>Based on your spending patterns, you could save AED 250 monthly by reducing restaurant visits by 10%.</p>
+                </div>
+              </div>
+              
+              <div class="tip-item">
+                <div class="tip-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20V10"></path>
+                    <path d="m18 20-6-6-6 6"></path>
+                    <path d="M18 4H6"></path>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3>Switch to a Cheaper Gym Plan</h3>
+                  <p>Your current gym membership is AED 350/month. A similar plan at Fitness First would save you AED 100 monthly.</p>
+                </div>
+              </div>
+              
+              <div class="tip-item">
+                <div class="tip-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <path d="M3 3v18"></path>
+                    <path d="M21 3v18"></path>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3>Bundle Your Streaming Services</h3>
+                  <p>You're currently paying AED 450 for 5 separate streaming services. Bundling them could save you AED 120 monthly.</p>
                 </div>
               </div>
             </div>
@@ -401,6 +452,78 @@ definePageMeta({
   background: #999;
 }
 
+/* Savings Tips Styles */
+.savings-tips {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 0;
+}
+
+.savings-tips h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.tip-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.tip-icon {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  color: #81c784;
+}
+
+.tip-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tip-content {
+  flex: 1;
+}
+
+.tip-content h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.tip-content p {
+  font-size: 0.85rem;
+  color: #777;
+  line-height: 1.4;
+}
+
 /* Responsive adjustments */
 @media (min-width: 640px) {
   .savings-container {
@@ -412,5 +535,18 @@ definePageMeta({
   .savings-container {
     max-width: 500px;
   }
+}
+
+.section-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.ai-status {
+  font-size: 0.75rem;
+  color: #81c784;
+  font-style: italic;
+  margin-top: 0.25rem;
 }
 </style> 

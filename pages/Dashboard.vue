@@ -47,7 +47,7 @@
               </div>
               <div class="stat-content">
                 <h3>Income</h3>
-                <p class="amount">$1,823.45</p>
+                <p class="amount">AED 6,700.00</p>
               </div>
             </div>
             <div class="stat-card expense">
@@ -58,7 +58,7 @@
               </div>
               <div class="stat-content">
                 <h3>Expense</h3>
-                <p class="amount">$658.25</p>
+                <p class="amount">AED 2,421.10</p>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
                         <div class="valid-label">Valid Thru</div>
                         <div class="valid-date">12/25</div>
                       </div>
-                      <div class="card-holder">John Doe</div>
+                      <div class="card-holder">Ahmed Salem</div>
                     </div>
                     <div class="card-type">Debit Card</div>
                   </div>
@@ -103,7 +103,7 @@
                         <div class="valid-label">Valid Thru</div>
                         <div class="valid-date">09/26</div>
                       </div>
-                      <div class="card-holder">John Doe</div>
+                      <div class="card-holder">Ahmed Salem</div>
                     </div>
                     <div class="card-type">Credit Card</div>
                   </div>
@@ -125,15 +125,15 @@
                   </svg>
                 </div>
                 <div class="pot-info">
-                  <h3 class="pot-name">Vacation Fund</h3>
-                  <span class="pot-amount">$2,500 / $5,000</span>
+                  <h3 class="pot-name">Thailand Adventure</h3>
+                  <span class="pot-amount">AED 7,500.00 / AED 10,000.00</span>
                 </div>
               </div>
               <div class="progress-container">
                 <div class="progress-bar">
-                  <div class="progress" style="width: 50%"/>
+                  <div class="progress" style="width: 75%"/>
                 </div>
-                <span class="progress-percentage">50%</span>
+                <span class="progress-percentage">75%</span>
               </div>
             </div>
             <div class="pot-item emergency-pot">
@@ -144,15 +144,15 @@
                   </svg>
                 </div>
                 <div class="pot-info">
-                  <h3 class="pot-name">Emergency Fund</h3>
-                  <span class="pot-amount">$8,000 / $10,000</span>
+                  <h3 class="pot-name">Dream Home Fund</h3>
+                  <span class="pot-amount">AED 45,000.00 / AED 100,000.00</span>
                 </div>
               </div>
               <div class="progress-container">
                 <div class="progress-bar">
-                  <div class="progress" style="width: 80%"/>
+                  <div class="progress" style="width: 45%"/>
                 </div>
-                <span class="progress-percentage">80%</span>
+                <span class="progress-percentage">45%</span>
               </div>
             </div>
           </div>
